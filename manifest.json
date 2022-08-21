@@ -3,5 +3,12 @@
   "description": "A browser extension to provide a ticket link in Ionbiz",
   "homepage_url": "https://github.com/knvc/ionbiz-tlp",
   "version": "0.1",
-  "manifest_version": 3
+  "manifest_version": 3,
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "permissions": [
+    "storage"
+  ]
 }
