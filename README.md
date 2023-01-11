@@ -10,19 +10,28 @@ First, If you click on a ticket in the ticket overview page (example.ionbiz.com/
 The url however isn't updated to the ticket url.
 Instead you have to search for the ticket in the overview page and have to click right mouse > copy url.
 
-Secondly, If you search for a ticket in the ticket overview page, the same issue as above applies. The url isn't updated to the ticket url.
+Secondly, If you search for a ticket in the general search bar, the same issue as above applies. The detail section a ticket is show, but the url isn't updated.
 
-Thirdly, the option of copying a ticket url generates a link without the ticket number and title as description:
-```
-<a href="example.ionbiz.com/Issue/Index/1">example.ionbiz.com/Issue/Index/1</a>
-```
+Thirdly, the option of copying a ticket url generates a plain link without the ticket number and title as description (https://example.ionbiz.com/Issue/Index/1)
 
 ## Solution
 
-The browser extension detects a viewed ticket page on the Ionbiz application and builds a link with the issue number and title as description.
+The browser extension detects a ticket section on the Ionbiz application and provides a link if you click on the browser extension.
+
+By default the extension copies the link in the a plain link format:
+
+```
+https://example.ionbiz.com/Issue/Index/1
+```
+
+A second option is to format the link in a html link with ticket id and description: 
 
 ```
 <a href="example.ionbiz.com/Issue/Index/1">12345 - Description of ticket</a>
 ```
 
-The user then has multiple options to copy the link for use.
+Lastly, a custom format can be chosen based on a link, id and description token.
+
+```
+https://example.ionbiz.com/Issue/Index/1 (12345 - Description of ticket)
+```
