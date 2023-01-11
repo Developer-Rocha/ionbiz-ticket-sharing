@@ -18,7 +18,7 @@ Thirdly, the option of copying a ticket url generates a plain link without the t
 
 The browser extension detects a ticket section on the Ionbiz application and provides a link if you click on the browser extension.
 
-By default the extension copies the link in the a plain link format:
+By default the extension copies the link in a plain link format:
 
 ```
 https://example.ionbiz.com/Issue/Index/1
