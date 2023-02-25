@@ -8,6 +8,7 @@ var currentUrl = window.location.href,
 
 if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticketPageUrl.kanban_page)) {
     var uniqueId = document.getElementsByClassName('uniqueId')[0];
+    console.log(document.getElementsByClassName('uniqueId'));
 
     if (uniqueId) {
         let linkId = document.getElementById('TabGeneral_IssueDetailSection_IssueId').value,
@@ -18,6 +19,7 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
         var data = [new ClipboardItem({ "text/plain": new Blob([newLink], { type: "text/plain" }) })];
         navigator.clipboard.write(data).then(function () {
             console.log("Copied to clipboard successfully!");
+            window.history.pushState({}, "New Ticket", "/Issue/Index/" + linkIndex);
         }, function () {
             console.error("Unable to write to clipboard");
         });
