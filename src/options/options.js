@@ -1,6 +1,19 @@
-var PLAIN_URL = 'plain-link';
-var URL_AND_TEXT = 'plain-link-and-text';
-var HTML_LINK = 'html-link';
+const PLAIN_URL = 'plainlink';
+const URL_AND_TEXT = 'plainlinkandtext';
+const HTML_LINK = 'htmllink';
+const formOptions = document.getElementById('options');
+
+formOptions.plainlink.addEventListener('change', function (event) {
+    document.getElementById('example').innerHTML = 'https://example.ionbiz.com/Issue/Index/1';
+});
+
+formOptions.plainlinkandtext.addEventListener('change', function () {
+    document.getElementById('example').innerHTML = 'https://example.ionbiz.com/Issue/Index/1 (12345 - Description of ticket)';
+});
+
+formOptions.htmllink.addEventListener('change', function () {
+    document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">12345 - Description of ticket</a>';
+});
 
 // Saves options to chrome.storage
 function save_options() {
