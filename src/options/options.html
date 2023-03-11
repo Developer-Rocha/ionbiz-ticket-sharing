@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Ionbiz TLP - Options</title>
 </head>
+
 <body>
 
-<label>
-    <span>Subdomain</span>
-    <input id="domain" type="text" value="" placeholder="subdomain.ionbiz.com" />
-</label>
+    <h3>In what format may the ticket link be copied by default?</h3>
 
-<label>
-    <input id="auto-copy" type="checkbox" value="" placeholder="subdomain.ionbiz.com" />
-    <span>Auto copy detected link to clipboard</span>
-</label>
+    <input type="radio" id="plain-link" name="options-link-format" value="HTML" checked="checked">
+    <label for="plain-link">URL</label><br>
+    <input type="radio" id="plain-link-and-text" name="options-link-format" value="JavaScript">
+    <label for="plain-link-and-text">URL and ticket info</label><br>
+    <input type="radio" id="html-link" name="options-link-format" value="CSS">
+    <label for="html-link">HTML link containing ticket info</label><br>
 
-<div id="status"></div>
-<button id="save">Save</button>
+    <p><strong>Example: </strong><span id="options-link-example"></span></p>
 
-<script src="options.js"></script>
+    <button id="save">Save</button><span id="status"></span>
+
+    <script src="options.js"></script>
 </body>
+
 </html>
