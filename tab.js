@@ -8,22 +8,32 @@ var currentUrl = window.location.href,
 
 if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticketPageUrl.kanban_page)) {
     var uniqueId = document.getElementsByClassName('uniqueId')[0];
-    console.log(document.getElementsByClassName('uniqueId'));
 
     if (uniqueId) {
-        let linkId = document.getElementById('TabGeneral_IssueDetailSection_IssueId').value,
+        const linkId = document.getElementById('TabGeneral_IssueDetailSection_IssueId').value,
             linkDescription = document.getElementById('TabGeneral_IssueDetailSection_Name').value,
-            linkIndex = document.getElementById('Id').value;
+            linkIndex = document.getElementById('Id').value,
+            ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + linkIndex + '/',
+            ticketInfo = linkId + ' ' + linkDescription;
 
-        let newLink = linkId + ' ' + linkDescription + ' ' + 'https://' + window.location.hostname + '/Issue/Index/' + linkIndex + ' ';
-        var data = [new ClipboardItem({ "text/plain": new Blob([newLink], { type: "text/plain" }) })];
-        navigator.clipboard.write(data).then(function () {
-            console.log("Copied to clipboard successfully!");
-            window.history.pushState({}, "New Ticket", "/Issue/Index/" + linkIndex);
-        }, function () {
-            console.error("Unable to write to clipboard");
+        let formattedContent = '';
+
+        chrome.storage.sync.get(["options"]).then((result) => {
+            if (result.options.HTML_LINK) {
+                formattedContent = [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
+            } else if (result.options.URL_AND_TEXT) {
+                formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
+            } else {
+                formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketURL], { type: "text/plain" }) })];
+            }
+
+            navigator.clipboard.write(formattedContent).then(function () {
+                console.log("Copied to clipboard successfully!");
+                window.history.pushState({}, "New Ticket", "/Issue/Index/" + linkIndex);
+            }, function () {
+                console.error("Unable to write to clipboard");
+            });
         });
-
     } else {
         console.error('Could not provide a link. Check if you have clicked a ticket.')
     }
