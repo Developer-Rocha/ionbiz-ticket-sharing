@@ -31,10 +31,10 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
             navigator.clipboard.write(formattedContent).then(function () {
                 window.history.pushState({}, ticketInfo, ticketURL);
             }, function () {
-                console.error('Error: Unable to write content to clipboard.');
+                console.warn('Warning: The extension could not write content to clipboard.');
             });
         });
     } else {
-        console.error('Could not provide a link. Check if you have clicked a ticket.')
+        console.warn('Warning: The extension could not find a unique issue ID.');
     }
 }
