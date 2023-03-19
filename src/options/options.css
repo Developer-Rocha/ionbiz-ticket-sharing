@@ -1,3 +1,14 @@
 .options p {
     height: 40px;
 }
+
+.options button {
+    background: #cfcfcf;
+    border: none;
+    padding: 10px 20px;
+}
+
+.options button:hover {
+    background: #979797;
+    cursor: pointer;
+}
