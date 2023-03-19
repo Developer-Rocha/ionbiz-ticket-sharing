@@ -10,11 +10,11 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
     var uniqueId = document.getElementsByClassName('uniqueId')[0];
 
     if (uniqueId) {
-        const linkId = document.getElementById('TabGeneral_IssueDetailSection_IssueId').value,
-            linkDescription = document.getElementById('TabGeneral_IssueDetailSection_Name').value,
-            linkIndex = document.getElementById('Id').value,
-            ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + linkIndex,
-            ticketInfo = linkId + ' ' + linkDescription;
+        const ticketId = document.getElementById('TabGeneral_IssueDetailSection_IssueId').value,
+            ticketTitle = document.getElementById('TabGeneral_IssueDetailSection_Name').value,
+            ticketIndex = document.getElementById('Id').value,
+            ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + ticketIndex,
+            ticketInfo = ticketId + ' ' + ticketTitle;
 
         let formattedContent = '';
 
@@ -29,7 +29,7 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
 
             navigator.clipboard.write(formattedContent).then(function () {
                 console.log("Copied to clipboard successfully!");
-                window.history.pushState({}, "New Ticket", "/Issue/Index/" + linkIndex);
+                window.history.pushState({}, ticketInfo, ticketURL);
             }, function () {
                 console.error("Unable to write to clipboard");
             });
