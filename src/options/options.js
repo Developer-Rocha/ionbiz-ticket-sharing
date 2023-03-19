@@ -1,18 +1,18 @@
-const PLAIN_URL = 'plainlink';
-const URL_AND_TEXT = 'plainlinkandtext';
-const HTML_LINK = 'htmllink';
+const PLAIN_URL = 'url';
+const URL_AND_TEXT = 'textandurl';
+const HTML_LINK = 'link';
 const formOptions = document.getElementById('options');
 
-formOptions.plainlink.addEventListener('change', function (event) {
+formOptions.url.addEventListener('change', function () {
     document.getElementById('example').innerHTML = 'https://example.ionbiz.com/Issue/Index/1';
 });
 
-formOptions.plainlinkandtext.addEventListener('change', function () {
-    document.getElementById('example').innerHTML = 'https://example.ionbiz.com/Issue/Index/1 (12345 - Description of ticket)';
+formOptions.textandurl.addEventListener('change', function () {
+    document.getElementById('example').innerHTML = 'https://example.ionbiz.com/Issue/Index/1 (12345 Ticket title)';
 });
 
-formOptions.htmllink.addEventListener('change', function () {
-    document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">12345 - Description of ticket</a>';
+formOptions.link.addEventListener('change', function () {
+    document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">12345 Ticket title</a>';
 });
 
 // Saves options to chrome.storage
@@ -27,9 +27,7 @@ function save_options() {
         // Update status to let user know options were saved.
         var status = document.getElementById('status');
         status.textContent = 'Options saved.';
-        setTimeout(function () {
-            status.textContent = '';
-        }, 750);
+
     });
 }
 
