@@ -13,7 +13,7 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
         const linkId = document.getElementById('TabGeneral_IssueDetailSection_IssueId').value,
             linkDescription = document.getElementById('TabGeneral_IssueDetailSection_Name').value,
             linkIndex = document.getElementById('Id').value,
-            ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + linkIndex + '/',
+            ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + linkIndex,
             ticketInfo = linkId + ' ' + linkDescription;
 
         let formattedContent = '';
