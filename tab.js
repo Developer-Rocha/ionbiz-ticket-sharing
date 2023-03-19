@@ -7,12 +7,13 @@ var currentUrl = window.location.href,
     };
 
 if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticketPageUrl.kanban_page)) {
-    var uniqueId = document.getElementsByClassName('uniqueId')[0];
+    const bodyElement = document.querySelector('body'),
+        uniqueId = bodyElement.querySelector('.uniqueId');
 
     if (uniqueId) {
-        const ticketId = document.getElementById('TabGeneral_IssueDetailSection_IssueId').value,
-            ticketTitle = document.getElementById('TabGeneral_IssueDetailSection_Name').value,
-            ticketIndex = document.getElementById('Id').value,
+        const ticketId = bodyElement.querySelector('#TabGeneral_IssueDetailSection_IssueId').value,
+            ticketTitle = bodyElement.querySelector('#TabGeneral_IssueDetailSection_Name').value,
+            ticketIndex = bodyElement.querySelector('#Id').value,
             ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + ticketIndex,
             ticketInfo = ticketId + ' ' + ticketTitle;
 
