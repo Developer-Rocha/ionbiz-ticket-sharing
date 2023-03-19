@@ -4,25 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Ionbiz TLP - Options</title>
+    <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
 
-    <h3>In what format may the ticket link be copied by default?</h3>
+    <h3>In what format may the ticket info be copied by default?</h3>
 
-    <form id="options">
-        <input type="radio" id="plainlink" name="options-link-format" value="HTML" checked="checked">
-        <label for="plainlink">URL</label><br>
-        <input type="radio" id="plainlinkandtext" name="options-link-format" value="JavaScript">
-        <label for="plainlinkandtext">URL and ticket info</label><br>
-        <input type="radio" id="htmllink" name="options-link-format" value="CSS">
-        <label for="htmllink">HTML link containing ticket info</label><br>
+    <form id="options" class="options">
+        <input type="radio" id="url" name="options-link-format" value="HTML" checked="checked">
+        <label for="url">URL</label><br>
+        <input type="radio" id="textandurl" name="options-link-format" value="JavaScript">
+        <label for="textandurl">URL and ticket info</label><br>
+        <input type="radio" id="link" name="options-link-format" value="CSS">
+        <label for="link">HTML link containing ticket info</label><br>
 
         <p><strong>Example: </strong><span id="example"></span></p>
-
         <button id="save">Save</button><span id="status"></span>
     </form>
-
 
     <script src="options.js"></script>
 </body>
