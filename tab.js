@@ -28,15 +28,12 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
             }
 
             navigator.clipboard.write(formattedContent).then(function () {
-                console.log("Copied to clipboard successfully!");
                 window.history.pushState({}, ticketInfo, ticketURL);
             }, function () {
-                console.error("Unable to write to clipboard");
+                console.error('Error: Unable to write content to clipboard.');
             });
         });
     } else {
         console.error('Could not provide a link. Check if you have clicked a ticket.')
     }
-} else {
-    console.log('you are not on the right page')
 }
