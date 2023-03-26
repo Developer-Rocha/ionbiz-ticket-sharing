@@ -1,6 +1,6 @@
 # Ionbiz Ticket Sharing
 
-Ionbiz Sharing is a browser extension that provides a user-friendly link based on a ticket viewed in the Ionbiz application.
+Ionbiz Ticket Sharing is a browser extension that provides a user-friendly link based on a ticket viewed in the Ionbiz application.
 
 ## Problem statement
 
