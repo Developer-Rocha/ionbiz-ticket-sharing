@@ -1,6 +1,6 @@
-# Ionbiz Ticket Link Provider
+# Ionbiz Ticket Sharing
 
-Ionbiz Ticket Link Provider is a browser extension that provides a user-friendly link based on a ticket viewed in the Ionbiz application.
+Ionbiz Sharing is a browser extension that provides a user-friendly link based on a ticket viewed in the Ionbiz application.
 
 ## Problem statement
 
