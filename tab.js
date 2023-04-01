@@ -19,9 +19,8 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
 
         let formattedContent = '';
 
-        chrome.storage.sync.get(["options"])
+        chrome.storage.sync.get({ 'options': { PLAIN_URL: true } })
             .then((result) => {
-                console.log(result)
                 if (result.options.HTML_LINK) {
                     formattedContent = [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
                 } else if (result.options.URL_AND_TEXT) {
