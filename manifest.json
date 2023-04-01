@@ -1,7 +1,7 @@
 {
-  "name": "Ionbiz Ticket Link Provider",
+  "name": "Ionbiz Ticket Sharing",
   "description": "A browser extension to provide a ticket link in Ionbiz",
-  "homepage_url": "https://github.com/knvc/ionbiz-tlp",
+  "homepage_url": "https://github.com/knvc/ionbiz-ticket-sharing",
   "version": "0.1",
   "manifest_version": 3,
   "action": {
