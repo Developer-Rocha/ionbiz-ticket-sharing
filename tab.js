@@ -19,11 +19,11 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
 
         let formattedContent = '';
 
-        chrome.storage.sync.get({ 'options': { PLAIN_URL: true } })
+        chrome.storage.sync.get({ 'options': { URL: true } })
             .then((result) => {
-                if (result.options.HTML_LINK) {
+                if (result.options.LINK) {
                     formattedContent = [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
-                } else if (result.options.URL_AND_TEXT) {
+                } else if (result.options.TEXT_AND_URL) {
                     formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
                 } else {
                     formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketURL], { type: "text/plain" }) })];

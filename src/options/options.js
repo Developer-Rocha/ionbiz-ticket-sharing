@@ -1,27 +1,27 @@
-const PLAIN_URL = 'url';
-const URL_AND_TEXT = 'textandurl';
-const HTML_LINK = 'link';
-const formOptions = document.getElementById('options');
+const URL = 'url',
+    TEXT_AND_URL = 'textandurl',
+    LINK = 'link',
+    formOptions = document.getElementById('options');
 
 formOptions.url.addEventListener('change', function () {
-    document.getElementById('example').innerHTML = 'https://example.ionbiz.com/Issue/Index/1';
+    document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">https://example.ionbiz.com/Issue/Index/1</a>';
 });
 
 formOptions.textandurl.addEventListener('change', function () {
-    document.getElementById('example').innerHTML = 'https://example.ionbiz.com/Issue/Index/1 (12345 Ticket title)';
+    document.getElementById('example').innerHTML = '12345 Ticket name <a href="example.ionbiz.com/Issue/Index/1">https://example.ionbiz.com/Issue/Index/1</a>';
 });
 
 formOptions.link.addEventListener('change', function () {
-    document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">12345 Ticket title</a>';
+    document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">12345 Ticket name</a>';
 });
 
 // Saves options to chrome.storage
 function save_options() {
     chrome.storage.sync.set({
         'options': {
-            PLAIN_URL: document.getElementById(PLAIN_URL).checked,
-            URL_AND_TEXT: document.getElementById(URL_AND_TEXT).checked,
-            HTML_LINK: document.getElementById(HTML_LINK).checked
+            URL: document.getElementById(URL).checked,
+            TEXT_AND_URL: document.getElementById(TEXT_AND_URL).checked,
+            LINK: document.getElementById(LINK).checked
         }
     }, function () {
         // close window
@@ -33,9 +33,9 @@ function save_options() {
 // stored in chrome.storage.
 function restore_options() {
     chrome.storage.sync.get(["options"]).then((result) => {
-        document.getElementById(PLAIN_URL).checked = result.options.PLAIN_URL
-        document.getElementById(URL_AND_TEXT).checked = result.options.URL_AND_TEXT;
-        document.getElementById(HTML_LINK).checked = result.options.HTML_LINK;
+        document.getElementById(URL).checked = result.options.URL
+        document.getElementById(TEXT_AND_URL).checked = result.options.TEXT_AND_URL;
+        document.getElementById(LINK).checked = result.options.LINK;
     });
 }
 
