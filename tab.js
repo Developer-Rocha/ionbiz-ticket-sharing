@@ -1,5 +1,3 @@
-console.log('tab.js');
-
 var currentUrl = window.location.href,
     ticketPageUrl = {
         'ticket_page': '.ionbiz.com/Issue/Index',
@@ -33,7 +31,7 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
 
                 navigator.clipboard.write(formattedContent).then(function () {
                     window.history.pushState({}, ticketInfo, ticketURL);
-                }, function () {
+                }, function (error) {
                     console.warn('Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.');
                 });
             })
