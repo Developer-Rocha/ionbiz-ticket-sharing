@@ -1,10 +1,15 @@
 const URL = 'url',
+    TEXT = 'text',
     TEXT_AND_URL = 'textandurl',
     LINK = 'link',
     formOptions = document.getElementById('options');
 
 formOptions.url.addEventListener('change', function () {
     document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">https://example.ionbiz.com/Issue/Index/1</a>';
+});
+
+formOptions.text.addEventListener('change', function () {
+    document.getElementById('example').innerHTML = '12345 Ticket name';
 });
 
 formOptions.textandurl.addEventListener('change', function () {
@@ -20,6 +25,7 @@ function save_options() {
     chrome.storage.sync.set({
         'options': {
             URL: document.getElementById(URL).checked,
+            TEXT: document.getElementById(TEXT).checked,
             TEXT_AND_URL: document.getElementById(TEXT_AND_URL).checked,
             LINK: document.getElementById(LINK).checked
         }
@@ -37,7 +43,8 @@ function cancel_options() {
 // stored in chrome.storage.
 function restore_options() {
     chrome.storage.sync.get(["options"]).then((result) => {
-        document.getElementById(URL).checked = result.options.URL
+        document.getElementById(URL).checked = result.options.URL;
+        document.getElementById(TEXT).checked = result.options.TEXT;
         document.getElementById(TEXT_AND_URL).checked = result.options.TEXT_AND_URL;
         document.getElementById(LINK).checked = result.options.LINK;
     });

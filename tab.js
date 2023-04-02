@@ -23,6 +23,8 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
             .then((result) => {
                 if (result.options.LINK) {
                     formattedContent = [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
+                } else if (result.options.TEXT) {
+                    formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo], { type: "text/plain" }) })];
                 } else if (result.options.TEXT_AND_URL) {
                     formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
                 } else {
