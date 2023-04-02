@@ -20,7 +20,6 @@ formOptions.link.addEventListener('change', function () {
     document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">12345 Ticket name</a>';
 });
 
-// Saves options to chrome.storage
 function save_options() {
     chrome.storage.sync.set({
         'options': {
@@ -30,7 +29,6 @@ function save_options() {
             LINK: document.getElementById(LINK).checked
         }
     }, function () {
-        // close window
         window.close();
     });
 }
@@ -39,10 +37,8 @@ function cancel_options() {
     window.close();
 }
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
 function restore_options() {
-    chrome.storage.sync.get(["options"]).then((result) => {
+    chrome.storage.sync.get({ 'options': { URL: true } }).then((result) => {
         if (result.options.LINK) {
             document.getElementById(LINK).checked = result.options.LINK;
             document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">12345 Ticket name</a>';
