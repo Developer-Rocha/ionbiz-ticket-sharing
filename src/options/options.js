@@ -43,10 +43,19 @@ function cancel_options() {
 // stored in chrome.storage.
 function restore_options() {
     chrome.storage.sync.get(["options"]).then((result) => {
-        document.getElementById(URL).checked = result.options.URL;
-        document.getElementById(TEXT).checked = result.options.TEXT;
-        document.getElementById(TEXT_AND_URL).checked = result.options.TEXT_AND_URL;
-        document.getElementById(LINK).checked = result.options.LINK;
+        if (result.options.LINK) {
+            document.getElementById(LINK).checked = result.options.LINK;
+            document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">12345 Ticket name</a>';
+        } else if (result.options.TEXT) {
+            document.getElementById(TEXT).checked = result.options.TEXT;
+            document.getElementById('example').innerHTML = '12345 Ticket name';
+        } else if (result.options.TEXT_AND_URL) {
+            document.getElementById(TEXT_AND_URL).checked = result.options.TEXT_AND_URL;
+            document.getElementById('example').innerHTML = '12345 Ticket name <a href="example.ionbiz.com/Issue/Index/1">https://example.ionbiz.com/Issue/Index/1</a>';
+        } else {
+            document.getElementById(URL).checked = result.options.URL;
+            document.getElementById('example').innerHTML = '<a href="example.ionbiz.com/Issue/Index/1">https://example.ionbiz.com/Issue/Index/1</a>';
+        }
     });
 }
 
