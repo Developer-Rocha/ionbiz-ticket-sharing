@@ -32,13 +32,13 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
                 navigator.clipboard.write(formattedContent).then(function () {
                     window.history.pushState({}, ticketInfo, ticketURL);
                 }, function () {
-                    console.warn('Warning: The Ionbiz Ticket Sharing extension could not write content to clipboard.');
+                    console.warn('Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.');
                 });
             })
             .catch((error) => {
-                console.error('Error: The Ionbiz Ticket Sharing could not load the settings from storage.');
+                console.error('Error: The Ionbiz Ticket Sharing extension could not load the storage settings.');
             });
     } else {
-        console.warn('Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID.');
+        console.warn('Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID. Please view a ticket.');
     }
 }
