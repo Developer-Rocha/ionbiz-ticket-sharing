@@ -39,6 +39,6 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
                 console.error('Error: The Ionbiz Ticket Sharing extension could not load the storage settings.');
             });
     } else {
-        console.warn('Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID. Please view a ticket.');
+        console.warn('Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID. Tip: View a ticket section.');
     }
 }
