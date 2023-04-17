@@ -32,7 +32,7 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
                 navigator.clipboard.write(formattedContent).then(function () {
                     window.history.pushState({}, ticketInfo, ticketURL);
                 }, function (error) {
-                    console.warn('Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.');
+                    console.warn('Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.', error);
                 });
             })
             .catch((error) => {
