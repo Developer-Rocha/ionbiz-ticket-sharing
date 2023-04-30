@@ -9,35 +9,39 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
         uniqueId = bodyElement.querySelector('.uniqueId');
 
     if (uniqueId) {
-        const ticketId = bodyElement.querySelector('#TabGeneral_IssueDetailSection_IssueId').value,
-            ticketTitle = bodyElement.querySelector('#TabGeneral_IssueDetailSection_Name').value,
-            ticketIndex = bodyElement.querySelector('#Id').value,
-            ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + ticketIndex,
-            ticketInfo = ticketId + ' ' + ticketTitle;
+        let ticketId = bodyElement.querySelector('#TabGeneral_IssueDetailSection_IssueId'),
+            ticketTitle = bodyElement.querySelector('#TabGeneral_IssueDetailSection_Name'),
+            ticketIndex = bodyElement.querySelector('#Id');
 
-        let formattedContent = ''
+        if (ticketId && ticketTitle && ticketIndex) {
+            let formattedContent = '';
+            const ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + ticketIndex.value,
+                ticketInfo = ticketId.value + ' ' + ticketTitle.value;
 
-        chrome.storage.sync.get({ 'options': { URL: true } })
-            .then((result) => {
-                if (result.options.LINK) {
-                    formattedContent = [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
-                } else if (result.options.TEXT) {
-                    formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo], { type: "text/plain" }) })];
-                } else if (result.options.TEXT_AND_URL) {
-                    formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
-                } else {
-                    formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketURL], { type: "text/plain" }) })];
-                }
+            chrome.storage.sync.get({ 'options': { URL: true } })
+                .then((result) => {
+                    if (result.options.LINK) {
+                        formattedContent = [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
+                    } else if (result.options.TEXT) {
+                        formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo], { type: "text/plain" }) })];
+                    } else if (result.options.TEXT_AND_URL) {
+                        formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
+                    } else {
+                        formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketURL], { type: "text/plain" }) })];
+                    }
 
-                navigator.clipboard.write(formattedContent).then(function () {
-                    window.history.pushState({}, ticketInfo, ticketURL);
-                }, function (error) {
-                    console.warn('Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.', error);
+                    navigator.clipboard.write(formattedContent).then(function () {
+                        window.history.pushState({}, ticketInfo, ticketURL);
+                    }, function (error) {
+                        console.warn('Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.', error);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error: The Ionbiz Ticket Sharing extension could not load the storage settings.');
                 });
-            })
-            .catch((error) => {
-                console.error('Error: The Ionbiz Ticket Sharing extension could not load the storage settings.');
-            });
+        } else {
+            console.warn('Warning: The Ionbiz Ticket Sharing extension could not find the ticket details.');
+        }
     } else {
         console.warn('Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID. Tip: View a ticket section.');
     }
