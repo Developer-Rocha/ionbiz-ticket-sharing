@@ -15,7 +15,7 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
             ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + ticketIndex,
             ticketInfo = ticketId + ' ' + ticketTitle;
 
-        let formattedContent = '';
+        let formattedContent = ''
 
         chrome.storage.sync.get({ 'options': { URL: true } })
             .then((result) => {
@@ -41,4 +41,6 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
     } else {
         console.warn('Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID. Tip: View a ticket section.');
     }
+} else {
+    console.warn('Warning: Please go to a Ionbiz subdomain url (*.ionbiz.com) to use the The Ionbiz Ticket Sharing extension.');
 }
