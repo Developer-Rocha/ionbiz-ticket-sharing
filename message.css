@@ -1,0 +1,36 @@
+.ionbiz-ticket-sharing-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: #000000;
+    padding: .5rem 1rem;
+    animation: hide 1s ease-in 2s;
+    animation-fill-mode: forwards;
+}
+
+.modal-is-hidden {
+    visibility: hidden;
+}
+
+.modal-type--success {
+    background-color: #42b82e;
+}
+
+.modal-type--warning {
+    background-color: #ff6600;
+}
+
+.modal-type--error {
+    background-color: #cc0033;
+}
+
+.ionbiz-ticket-sharing-modal p {
+    color: #ffffff;
+}
+
+@keyframes hide {
+    to {
+        visibility: hidden;
+    }
+}
