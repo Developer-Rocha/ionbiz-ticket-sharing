@@ -3,4 +3,9 @@ chrome.action.onClicked.addListener((tab) => {
         target: { tabId: tab.id },
         files: ['tab.js']
     });
+
+    chrome.scripting.insertCSS({
+        target: { tabId: tab.id },
+        files: ['message.css']
+    });
 });

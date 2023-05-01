@@ -2,11 +2,23 @@ var currentUrl = window.location.href,
     ticketPageUrl = {
         'ticket_page': '.ionbiz.com/Issue/Index',
         'kanban_page': '.ionbiz.com/IssueKanban/Index'
-    };
+    },
+    elementDiv,
+    bodyElement = document.querySelector('body'),
+    elementParagraph = null,
+    elementDiv = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
+    uniqueId;
+
+if (!elementDiv) {
+    elementDiv = document.createElement('div');
+    elementDiv.setAttribute('class', 'ionbiz-ticket-sharing-modal');
+    elementParagraph = document.createElement('p');
+} else {
+    elementParagraph = elementDiv.querySelector('p');
+}
 
 if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticketPageUrl.kanban_page)) {
-    const bodyElement = document.querySelector('body'),
-        uniqueId = bodyElement.querySelector('.uniqueId');
+    uniqueId = bodyElement.querySelector('.uniqueId');
 
     if (uniqueId) {
         let ticketId = bodyElement.querySelector('#TabGeneral_IssueDetailSection_IssueId'),
@@ -32,19 +44,23 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
 
                     navigator.clipboard.write(formattedContent).then(function () {
                         window.history.pushState({}, ticketInfo, ticketURL);
+                        elementParagraph.innerHTML = 'Ticket info was successfully copied to your clipboard.';
                     }, function (error) {
-                        console.warn('Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.', error);
+                        elementParagraph.innerHTML = 'Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.', error;
                     });
                 })
                 .catch((error) => {
-                    console.error('Error: The Ionbiz Ticket Sharing extension could not load the storage settings.');
+                    elementParagraph.innerHTML = 'Error: The Ionbiz Ticket Sharing extension could not load the storage settings.';
                 });
         } else {
-            console.warn('Warning: The Ionbiz Ticket Sharing extension could not find the ticket details.');
+            elementParagraph.innerHTML = 'Warning: The Ionbiz Ticket Sharing extension could not find the ticket details.';
         }
     } else {
-        console.warn('Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID. Tip: View a ticket section.');
+        elementParagraph.innerHTML = 'Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID. Tip: View a ticket section.';
     }
 } else {
-    console.warn('Warning: Please go to a Ionbiz subdomain url (*.ionbiz.com) to use the The Ionbiz Ticket Sharing extension.');
+    elementParagraph.innerHTML = 'Warning: Please go to a Ionbiz subdomain url (*.ionbiz.com) to use the The Ionbiz Ticket Sharing extension.';
 }
+
+elementDiv.appendChild(elementParagraph);
+bodyElement.appendChild(elementDiv);
