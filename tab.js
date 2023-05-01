@@ -40,23 +40,26 @@ if (currentUrl.href.includes('.ionbiz.com')) {
 
                     navigator.clipboard.write(formattedContent).then(function () {
                         window.history.pushState({}, ticketInfo, ticketURL);
-                        elementParagraph.innerHTML = 'Ticket info was successfully copied to your clipboard.';
+                        displayMessage('Ticket info was successfully copied to your clipboard.');
                     }, function (error) {
-                        elementParagraph.innerHTML = 'The extension could not write ticket info to the clipboard.', error;
+                        displayMessage('The extension could not write ticket info to the clipboard.', error);
                     });
                 })
                 .catch((error) => {
-                    elementParagraph.innerHTML = 'The extension could not load the saved user preferences.';
+                    displayMessage('The extension could not load the saved user preferences.');
                 });
         } else {
-            elementParagraph.innerHTML = 'The extension could not retrieve the data in the web page.';
+            displayMessage('The extension could not retrieve the data in the web page.');
         }
     } else {
-        elementParagraph.innerHTML = 'View a ticket detail to use the extension.';
+        displayMessage('View a ticket detail to use the extension.');
     }
 } else {
-    elementParagraph.innerHTML = 'Go to an Ionbiz subdomain url (*.ionbiz.com) to use the extension.';
+    displayMessage('Go to an Ionbiz subdomain url (*.ionbiz.com) to use the extension.');
 }
 
-elementDiv.appendChild(elementParagraph);
-bodyElement.appendChild(elementDiv);
+function displayMessage(message, type) {
+    elementParagraph.innerHTML = message;
+    elementDiv.appendChild(elementParagraph);
+    bodyElement.appendChild(elementDiv);
+}
