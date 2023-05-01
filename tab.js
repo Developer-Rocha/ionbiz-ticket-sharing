@@ -1,4 +1,4 @@
-let currentUrl = window.location,
+var currentUrl = window.location,
     bodyElement = document.querySelector('body'),
     modalElement = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
     modalParagraphElement = null,
@@ -33,7 +33,7 @@ if (currentUrl.href.includes('.ionbiz.com')) {
                         window.history.pushState({}, ticketInfo, ticketURL);
                         displayMessage('Ticket info was successfully copied to your clipboard.');
                     }, function (error) {
-                        displayMessage('The extension could not write ticket info to the clipboard.', error);
+                        displayMessage('The extension could not write ticket info to the clipboard. ' + error);
                     });
                 })
                 .catch((error) => {
