@@ -1,8 +1,4 @@
-var currentUrl = window.location.href,
-    ticketPageUrl = {
-        'ticket_page': '.ionbiz.com',
-        'kanban_page': '.ionbiz.com'
-    },
+var currentUrl = window.location,
     elementDiv,
     bodyElement = document.querySelector('body'),
     elementParagraph = null,
@@ -17,7 +13,7 @@ if (!elementDiv) {
     elementParagraph = elementDiv.querySelector('p');
 }
 
-if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticketPageUrl.kanban_page)) {
+if (currentUrl.href.includes('.ionbiz.com')) {
     uniqueId = bodyElement.querySelector('.uniqueId');
 
     if (uniqueId) {
@@ -27,7 +23,7 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
 
         if (ticketId && ticketTitle && ticketIndex) {
             let formattedContent = '';
-            const ticketURL = 'https://' + window.location.hostname + '/Issue/Index/' + ticketIndex.value,
+            const ticketURL = 'https://' + currentUrl.hostname + '/Issue/Index/' + ticketIndex.value,
                 ticketInfo = ticketId.value + ' ' + ticketTitle.value;
 
             chrome.storage.sync.get({ 'options': { URL: true } })
