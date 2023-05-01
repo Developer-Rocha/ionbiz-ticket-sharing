@@ -5,14 +5,6 @@ var currentUrl = window.location,
     elementDiv = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
     uniqueId;
 
-if (!elementDiv) {
-    elementDiv = document.createElement('div');
-    elementDiv.setAttribute('class', 'ionbiz-ticket-sharing-modal');
-    elementParagraph = document.createElement('p');
-} else {
-    elementParagraph = elementDiv.querySelector('p');
-}
-
 if (currentUrl.href.includes('.ionbiz.com')) {
     uniqueId = bodyElement.querySelector('.uniqueId');
 
@@ -58,7 +50,15 @@ if (currentUrl.href.includes('.ionbiz.com')) {
     displayMessage('Go to an Ionbiz subdomain url (*.ionbiz.com) to use the extension.');
 }
 
-function displayMessage(message, type) {
+function displayMessage(message) {
+    if (elementDiv) {
+        elementParagraph = elementDiv.querySelector('p');
+    } else {
+        elementDiv = document.createElement('div');
+        elementParagraph = document.createElement('p');
+        elementDiv.setAttribute('class', 'ionbiz-ticket-sharing-modal');
+    }
+
     elementParagraph.innerHTML = message;
     elementDiv.appendChild(elementParagraph);
     bodyElement.appendChild(elementDiv);
