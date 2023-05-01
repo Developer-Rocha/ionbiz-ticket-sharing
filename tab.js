@@ -1,8 +1,7 @@
-var currentUrl = window.location,
-    elementDiv,
+let currentUrl = window.location,
     bodyElement = document.querySelector('body'),
-    elementParagraph = null,
-    elementDiv = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
+    modalElement = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
+    modalParagraphElement = null,
     uniqueId;
 
 if (currentUrl.href.includes('.ionbiz.com')) {
@@ -51,15 +50,15 @@ if (currentUrl.href.includes('.ionbiz.com')) {
 }
 
 function displayMessage(message) {
-    if (elementDiv) {
-        elementParagraph = elementDiv.querySelector('p');
+    if (modalElement) {
+        modalParagraphElement = modalElement.querySelector('p');
     } else {
-        elementDiv = document.createElement('div');
-        elementParagraph = document.createElement('p');
-        elementDiv.setAttribute('class', 'ionbiz-ticket-sharing-modal');
+        modalElement = document.createElement('div');
+        modalParagraphElement = document.createElement('p');
+        modalElement.setAttribute('class', 'ionbiz-ticket-sharing-modal');
     }
 
-    elementParagraph.innerHTML = message;
-    elementDiv.appendChild(elementParagraph);
-    bodyElement.appendChild(elementDiv);
+    modalParagraphElement.innerHTML = message;
+    modalElement.appendChild(modalParagraphElement);
+    bodyElement.appendChild(modalElement);
 }
