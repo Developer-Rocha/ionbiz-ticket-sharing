@@ -1,7 +1,7 @@
 var currentUrl = window.location.href,
     ticketPageUrl = {
-        'ticket_page': '.ionbiz.com/Issue/Index',
-        'kanban_page': '.ionbiz.com/IssueKanban/Index'
+        'ticket_page': '.ionbiz.com',
+        'kanban_page': '.ionbiz.com'
     },
     elementDiv,
     bodyElement = document.querySelector('body'),
@@ -46,20 +46,20 @@ if (currentUrl.includes(ticketPageUrl.ticket_page) || currentUrl.includes(ticket
                         window.history.pushState({}, ticketInfo, ticketURL);
                         elementParagraph.innerHTML = 'Ticket info was successfully copied to your clipboard.';
                     }, function (error) {
-                        elementParagraph.innerHTML = 'Warning: The Ionbiz Ticket Sharing extension could not write content to the clipboard.', error;
+                        elementParagraph.innerHTML = 'The extension could not write ticket info to the clipboard.', error;
                     });
                 })
                 .catch((error) => {
-                    elementParagraph.innerHTML = 'Error: The Ionbiz Ticket Sharing extension could not load the storage settings.';
+                    elementParagraph.innerHTML = 'The extension could not load the saved user preferences.';
                 });
         } else {
-            elementParagraph.innerHTML = 'Warning: The Ionbiz Ticket Sharing extension could not find the ticket details.';
+            elementParagraph.innerHTML = 'The extension could not retrieve the data in the web page.';
         }
     } else {
-        elementParagraph.innerHTML = 'Warning: The Ionbiz Ticket Sharing extension could not find a unique issue ID. Tip: View a ticket section.';
+        elementParagraph.innerHTML = 'View a ticket detail to use the extension.';
     }
 } else {
-    elementParagraph.innerHTML = 'Warning: Please go to a Ionbiz subdomain url (*.ionbiz.com) to use the The Ionbiz Ticket Sharing extension.';
+    elementParagraph.innerHTML = 'Go to an Ionbiz subdomain url (*.ionbiz.com) to use the extension.';
 }
 
 elementDiv.appendChild(elementParagraph);
