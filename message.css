@@ -1,33 +1,30 @@
 .ionbiz-ticket-sharing-modal {
+    font-family: Arial, Helvetica, sans-serif;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    border-radius: 10px;
-    z-index: 9999;
-    background-color: rgba(0, 0, 0, .8);
+    top: 15px;
+    right: 15px;
+    border-radius: 5px;
+    z-index: 10000;
     padding: .5rem 1rem;
     animation: hide 1s ease-in 2s;
     animation-fill-mode: forwards;
 }
 
-.modal-is-hidden {
-    visibility: hidden;
+.ionbiz-ticket-sharing-modal p {
+    color: #ffffff;
+    line-height: 0;
+}
+
+.modal-type--normal {
+    background-color: rgba(0, 0, 0, .8);
 }
 
 .modal-type--success {
-    background-color: #42b82e;
-}
-
-.modal-type--warning {
-    background-color: #ff6600;
+    background-color: rgba(66, 184, 46, .8);
 }
 
 .modal-type--error {
-    background-color: #cc0033;
-}
-
-.ionbiz-ticket-sharing-modal p {
-    color: #ffffff;
+    background-color: rgb(204, 0, 51, .8);
 }
 
 @keyframes hide {

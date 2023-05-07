@@ -1,6 +1,6 @@
 var currentUrl = window.location,
     bodyElement = document.querySelector('body'),
-    modalElement = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
+    modalElement = bodyElement.querySelector('#ionbiz-ticket-sharing-modal'),
     modalParagraphElement = null,
     uniqueId;
 
@@ -31,33 +31,33 @@ if (currentUrl.href.includes('.ionbiz.com')) {
 
                     navigator.clipboard.write(formattedContent).then(function () {
                         window.history.pushState({}, ticketInfo, ticketURL);
-                        displayMessage('Ticket info was successfully copied to your clipboard.');
+                        displayMessage('Ticket info was successfully copied to your clipboard.', 'success');
                     }, function (error) {
-                        displayMessage('The extension could not write ticket info to the clipboard. ' + error);
+                        displayMessage('The extension could not write ticket info to the clipboard. ' + error, 'error');
                     });
                 })
                 .catch((error) => {
-                    displayMessage('The extension could not load the saved user preferences.');
+                    displayMessage('The extension could not load the saved user preferences.', 'error');
                 });
         } else {
-            displayMessage('The extension could not retrieve the data in the web page.');
+            displayMessage('The extension could not retrieve the data in the web page.', 'error');
         }
     } else {
-        displayMessage('View a ticket detail to use the extension.');
+        displayMessage('View a ticket detail to use the extension.', 'normal');
     }
 } else {
-    displayMessage('Go to an Ionbiz subdomain url (*.ionbiz.com) to use the extension.');
+    displayMessage('Go to an Ionbiz subdomain url (*.ionbiz.com) to use the extension.', 'normal');
 }
 
-function displayMessage(message) {
+function displayMessage(message, type) {
     if (modalElement) {
         modalParagraphElement = modalElement.querySelector('p');
     } else {
         modalElement = document.createElement('div');
         modalParagraphElement = document.createElement('p');
-        modalElement.setAttribute('class', 'ionbiz-ticket-sharing-modal');
     }
 
+    modalElement.setAttribute('class', 'ionbiz-ticket-sharing-modal modal-type--' + type);
     modalParagraphElement.innerHTML = message;
     modalElement.appendChild(modalParagraphElement);
     bodyElement.appendChild(modalElement);
