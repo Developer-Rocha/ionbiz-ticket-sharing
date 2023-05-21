@@ -1,18 +1,21 @@
 .ionbiz-ticket-sharing-modal {
-    font-family: Arial, Helvetica, sans-serif;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    border-radius: 5px;
-    z-index: 10000;
-    padding: .5rem 1rem;
-    animation: hide 1s ease-in 2s;
-    animation-fill-mode: forwards;
+    display: block !important;
+    position: fixed !important;
+    top: 15px !important;
+    right: 15px !important;
+    border-radius: 5px !important;
+    z-index: 2000000000 !important;
+    padding: 15px 20px !important;
 }
 
 .ionbiz-ticket-sharing-modal p {
-    color: #ffffff;
-    line-height: 0;
+    display: block !important;
+    color: #ffffff !important;
+    line-height: normal !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 14px !important;
 }
 
 .modal-type--normal {
