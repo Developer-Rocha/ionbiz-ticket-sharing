@@ -1,11 +1,13 @@
 .ionbiz-ticket-sharing-modal {
     display: block !important;
     position: fixed !important;
-    top: 15px !important;
+    top: -50px;
     right: 15px !important;
     border-radius: 5px !important;
     z-index: 2000000000 !important;
     padding: 15px 20px !important;
+    animation-name: moveFromTop !important;
+    animation-duration: 6s !important;
 }
 
 .ionbiz-ticket-sharing-modal p {
@@ -30,8 +32,20 @@
     background-color: rgb(204, 0, 51, .8);
 }
 
-@keyframes hide {
-    to {
-        visibility: hidden;
+@keyframes moveFromTop {
+    0% {
+        top: -50px;
+    }
+
+    10% {
+        top: 15px;
+    }
+
+    95% {
+        top: 15px;
+    }
+
+    100% {
+        top: -50px;
     }
 }
