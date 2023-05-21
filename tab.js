@@ -1,6 +1,6 @@
 var currentUrl = window.location,
     bodyElement = document.querySelector('body'),
-    modalElement = bodyElement.querySelector('#ionbiz-ticket-sharing-modal'),
+    modalElement = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
     modalParagraphElement = null,
     uniqueId;
 
