@@ -16,10 +16,6 @@ p {
     font-weight: 600;
 }
 
-
-
-
-
 :root {
     --card-line-height: 1.2em;
     --card-padding: 1em;
@@ -30,7 +26,6 @@ p {
     --radio-border-width: 2px;
     --radio-size: 1.5em;
 }
-
 
 .radio-button-cards {
     display: grid;
@@ -132,7 +127,7 @@ p {
     cursor: default;
 }
 
-.radio:disabled~.share-format-details .share-format-type {
+.radio:disabled~.share-format-details .share-format-details-type {
     color: var(--color-dark-gray);
 }
 
@@ -145,7 +140,7 @@ p {
     border-color: var(--color-gray);
 }
 
-.share-format-type {
+.share-format-details-type {
     color: var(--color-green);
     font-size: 18px;
     font-weight: 600;
@@ -183,17 +178,17 @@ p {
     width: 1px;
 }
 
-
-.button-save,
-.button-cancel {}
-
-.options button {
-    font-size: 14px;
+button {
+    font-size: .875rem;
     font-weight: 600;
     text-transform: uppercase;
-    border-radius: 5px !important;
+    border-radius: 5px;
     border: none;
     padding: 10px 20px;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 .button-save {
@@ -207,19 +202,12 @@ p {
     margin-left: 0.5rem;
 }
 
-.options button:hover {
-    cursor: pointer;
-}
-
-.share-format-description,
-.share-format-example {
+.share-format-details-description,
+.share-format-details-example {
     color: rgb(153, 153, 153);
 }
 
-a:link {
-    color: rgb(153, 153, 153);
-}
-
+a:link,
 a:visited {
     color: rgb(153, 153, 153);
 }
