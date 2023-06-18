@@ -3,27 +3,58 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ionbiz TLP - Options</title>
+    <title>Options - Ionbiz Ticket Sharing</title>
+    <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
 
-    <h3>In what format may the ticket info be copied by default?</h3>
+    <h1>Ionbiz Ticket Sharing <span>Extension Options</span></h1>
+
+    <p>In what format may the ticket be shared?</p>
 
     <form id="options" class="options">
-        <input type="radio" id="url" name="options-link-format" value="url">
-        <label for="url">URL</label><br>
-        <input type="radio" id="text" name="options-link-format" value="text">
-        <label for="text">Ticket name</label><br>
-        <input type="radio" id="textandurl" name="options-link-format" value="textandurl">
-        <label for="textandurl">Ticket name and URL</label><br>
-        <input type="radio" id="link" name="options-link-format" value="link">
-        <label for="link">HTML link containing ticket name</label><br>
+        <div class="radio-button-cards">
+            <label class="card">
+                <input name="share-format" class="radio" type="radio" id="url" value="url">
+                <span class="share-format-details">
+                    <span class="share-format-type">Ticket URL</span>
+                    <span class="share-format-description">Displays the ticket url.</span>
+                    <span class="share-format-example">e.g. <a
+                            href="#">https://example.ionbiz.com/Issue/Index/1</a></span>
+                </span>
+            </label>
+            <label class="card">
+                <input name="share-format" class="radio" type="radio" id="text" value="text">
+                <span class="share-format-details" aria-hidden="true">
+                    <span class="share-format-type">Ticket info</span>
+                    <span class="share-format-description">Displays the ticket info which includes a ticket ID and
+                        description.</span>
+                    <span class="share-format-example">e.g. 12345 Ticket name</span>
+                </span>
+            </label>
+            <label class="card">
+                <input name="share-format" class="radio" type="radio" id="link" value="link">
+                <span class="share-format-details" aria-hidden="true">
+                    <span class="share-format-type">Ticket info (HTML link)</span>
+                    <span class="share-format-description">Displays the ticket info through an HTML link.</span>
+                    <span class="share-format-example">e.g. <a href="#">12345 Ticket name</a></span>
+                </span>
+            </label>
+            <label class="card">
+                <input name="share-format" class="radio" type="radio" id="textandurl" value="textandurl">
+                <span class="share-format-details" aria-hidden="true">
+                    <span class="share-format-type">Ticket info and URL</span>
+                    <span class="share-format-description">Displays the ticket URL and info.</span>
+                    <span class="share-format-example">e.g. 12345 Ticket name <a
+                            href="#">https://example.ionbiz.com/Issue/Index/1</a></span>
+                </span>
+            </label>
+        </div>
 
-        <p><strong>Example: </strong><span id="example"></span></p>
-        <button id="save">Save</button>
-        <button id="cancel">Cancel</button>
+        <button id="save" class="button-save">Save</button>
+        <button id="cancel" class="button-cancel">Cancel</button>
     </form>
 
     <script src="options.js"></script>
