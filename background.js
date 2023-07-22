@@ -1,6 +1,6 @@
-function shareTicket(args) {
+function shareTicket(options) {
 
-    var currentUrl = window.location,
+    let currentUrl = window.location,
         bodyElement = document.querySelector('body'),
         modalElement = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
         modalParagraphElement = null,
@@ -15,53 +15,20 @@ function shareTicket(args) {
                 ticketIndex = bodyElement.querySelector('#Id');
 
             if (ticketId && ticketTitle && ticketIndex) {
-                let formattedContent = '';
                 const ticketURL = 'https://' + currentUrl.hostname + '/Issue/Index/' + ticketIndex.value,
                     ticketInfo = ticketId.value + ' ' + ticketTitle.value;
 
-                if (args) {
-                    if (args == 'share_ticket_info_html_link') {
-                        formattedContent = [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
-                    } else if (args == 'share_ticket_info') {
-                        formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo], { type: "text/plain" }) })];
-                    } else if (args == 'share_ticket_info_and_url') {
-                        formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
-                    } else {
-                        formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketURL], { type: "text/plain" }) })];
-                    }
-
-                    navigator.clipboard.write(formattedContent).then(function () {
-                        window.history.pushState({}, ticketInfo, ticketURL);
-                        displayMessage('Ticket info was successfully copied to your clipboard.', 'success');
-                    }, function (error) {
-                        displayMessage('The extension could not write ticket info to the clipboard. ' + error, 'error');
-                    });
-
+                if (options) {
+                    writeToClipboard(getShareFormat(options, ticketURL, ticketInfo));
                 } else {
                     chrome.storage.sync.get({ 'options': { URL: true } })
                         .then((result) => {
-                            if (result.options.LINK) {
-                                formattedContent = [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
-                            } else if (result.options.TEXT) {
-                                formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo], { type: "text/plain" }) })];
-                            } else if (result.options.TEXT_AND_URL) {
-                                formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
-                            } else {
-                                formattedContent = [new ClipboardItem({ "text/plain": new Blob([ticketURL], { type: "text/plain" }) })];
-                            }
-
-                            navigator.clipboard.write(formattedContent).then(function () {
-                                window.history.pushState({}, ticketInfo, ticketURL);
-                                displayMessage('Ticket info was successfully copied to your clipboard.', 'success');
-                            }, function (error) {
-                                displayMessage('The extension could not write ticket info to the clipboard. ' + error, 'error');
-                            });
+                            writeToClipboard(getShareFormat(result.options, ticketURL, ticketInfo));
                         })
                         .catch((error) => {
                             displayMessage('The extension could not load the saved user preferences.', 'error');
                         });
                 }
-
             } else {
                 displayMessage('The extension could not retrieve the data in the web page.', 'error');
             }
@@ -70,6 +37,18 @@ function shareTicket(args) {
         }
     } else {
         displayMessage('Go to an Ionbiz subdomain url (*.ionbiz.com) to use the extension.', 'normal');
+    }
+
+    function getShareFormat(options, ticketURL, ticketInfo) {
+        if (options.LINK) {
+            return [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
+        } else if (options.TEXT) {
+            return [new ClipboardItem({ "text/plain": new Blob([ticketInfo], { type: "text/plain" }) })];
+        } else if (options.TEXT_AND_URL) {
+            return [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
+        } else {
+            return [new ClipboardItem({ "text/plain": new Blob([ticketURL], { type: "text/plain" }) })];
+        }
     }
 
     function displayMessage(message, type) {
@@ -85,11 +64,17 @@ function shareTicket(args) {
         modalElement.appendChild(modalParagraphElement);
         bodyElement.appendChild(modalElement);
     }
+
+    function writeToClipboard(formattedContent) {
+        navigator.clipboard.write(formattedContent).then(function () {
+            displayMessage('Ticket info was successfully copied to your clipboard.', 'success');
+        }, function (error) {
+            displayMessage('The extension could not write ticket info to the clipboard. ' + error, 'error');
+        });
+    }
 }
 
 chrome.action.onClicked.addListener((tab) => {
-    console.log('use action');
-
     chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: shareTicket,
@@ -105,11 +90,14 @@ async function getCurrentTab(command) {
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
     let [tab] = await chrome.tabs.query(queryOptions);
+    let options = {};
+
+    options[command] = true;
 
     chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: shareTicket,
-        args: [command],
+        args: [options],
     });
 
     chrome.scripting.insertCSS({
