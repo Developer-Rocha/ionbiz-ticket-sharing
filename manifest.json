@@ -9,19 +9,19 @@
     }
   },
   "commands": {
-    "share_ticket_url": {
+    "URL": {
       "suggested_key": "Alt+Shift+A",
       "description": "Share URL"
     },
-    "share_ticket_info": {
+    "TEXT": {
       "suggested_key": "Alt+Shift+Z",
       "description": "Share ticket Info"
     },
-    "share_ticket_info_html_link": {
+    "LINK": {
       "suggested_key": "Alt+Shift+E",
       "description": "Share ticket Info (HTML Link)"
     },
-    "share_ticket_info_and_url": {
+    "TEXT_AND_URL": {
       "suggested_key": "Alt+Shift+R",
       "description": "Share ticket info and URL"
     }
