@@ -12,9 +12,10 @@ function shareTicket(options) {
         if (uniqueId) {
             let ticketId = bodyElement.querySelector('#TabGeneral_IssueDetailSection_IssueId'),
                 ticketTitle = bodyElement.querySelector('#TabGeneral_IssueDetailSection_Name'),
-                ticketIndex = bodyElement.querySelector('#Id');
+                ticketForm = bodyElement.querySelector('#issueDetailForm'),
+                ticketIndex = ticketForm.querySelector('#Id');
 
-            if (ticketId && ticketTitle && ticketIndex) {
+            if (ticketId && ticketTitle && ticketForm && ticketIndex) {
                 const ticketURL = 'https://' + currentUrl.hostname + '/Issue/Index/' + ticketIndex.value,
                     ticketInfo = ticketId.value + ' ' + ticketTitle.value;
 
