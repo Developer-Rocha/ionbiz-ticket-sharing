@@ -11,19 +11,19 @@
   "commands": {
     "URL": {
       "suggested_key": "Alt+Shift+A",
-      "description": "Share URL"
+      "description": "Copy URL"
     },
     "TEXT": {
       "suggested_key": "Alt+Shift+Z",
-      "description": "Share ticket Info"
+      "description": "Copy ticket Info"
     },
     "LINK": {
       "suggested_key": "Alt+Shift+E",
-      "description": "Share ticket Info (HTML Link)"
+      "description": "Copy ticket Info (HTML Link)"
     },
     "TEXT_AND_URL": {
       "suggested_key": "Alt+Shift+R",
-      "description": "Share ticket info and URL"
+      "description": "Copy ticket info and URL"
     }
   },
   "icons": {
@@ -41,6 +41,6 @@
     "tabs",
     "activeTab",
     "scripting",
-    "clipboardWrite"
+    "contextMenus"
   ]
 }

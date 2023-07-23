@@ -75,25 +75,17 @@ function shareTicket(options) {
     }
 }
 
-chrome.action.onClicked.addListener((tab) => {
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        func: shareTicket,
-    });
+async function insertContentScript(tab, format) {
+    let options = null;
 
-    chrome.scripting.insertCSS({
-        target: { tabId: tab.id },
-        files: ['message.css']
-    });
-});
+    if (!tab) {
+        [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    }
 
-async function getCurrentTab(command) {
-    let queryOptions = { active: true, lastFocusedWindow: true };
-    // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tab] = await chrome.tabs.query(queryOptions);
-    let options = {};
-
-    options[command] = true;
+    if (format) {
+        options = {};
+        options[format] = true;
+    }
 
     chrome.scripting.executeScript({
         target: { tabId: tab.id },
@@ -104,9 +96,43 @@ async function getCurrentTab(command) {
     chrome.scripting.insertCSS({
         target: { tabId: tab.id },
         files: ['message.css']
-    })
+    });
 }
 
+chrome.runtime.onInstalled.addListener(function () {
+    chrome.contextMenus.create({
+        title: 'Copy URL',
+        contexts: ['all'],
+        id: 'URL'
+    });
+
+    chrome.contextMenus.create({
+        title: 'Copy ticket Info',
+        contexts: ['all'],
+        id: 'TEXT'
+    });
+
+    chrome.contextMenus.create({
+        title: 'Copy ticket Info (HTML Link)',
+        contexts: ['all'],
+        id: 'LINK'
+    });
+
+    chrome.contextMenus.create({
+        title: 'Copy ticket info and URL',
+        contexts: ['all'],
+        id: 'TEXT_AND_URL'
+    });
+});
+
+chrome.action.onClicked.addListener((tab) => {
+    insertContentScript(tab);
+});
+
 chrome.commands.onCommand.addListener((command) => {
-    const response = getCurrentTab(command);
+    insertContentScript(null, command);
+});
+
+chrome.contextMenus.onClicked.addListener((info) => {
+    insertContentScript(null, info.menuItemId);
 });
