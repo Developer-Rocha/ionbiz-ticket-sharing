@@ -75,7 +75,7 @@ function shareTicket(options) {
     }
 }
 
-async function insertContentScript(tab, format) {
+async function insertContentScript(tab, format, dialog) {
     let options = null;
 
     if (!tab) {
@@ -99,34 +99,89 @@ async function insertContentScript(tab, format) {
     });
 }
 
+async function insertContentScript(tab, format, isDialog) {
+    let options = null;
+
+    if (!tab) {
+        [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    }
+
+    if (isDialog) {
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            func: displayMessage,
+            args: ['Updated the default ticket sharing format.', 'success'],
+        });
+    } else {
+        if (format) {
+            options = {};
+            options[format] = true;
+        }
+
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            func: shareTicket,
+            args: [options],
+        });
+    }
+
+    chrome.scripting.insertCSS({
+        target: { tabId: tab.id },
+        files: ['message.css']
+    });
+}
+
+function displayMessage(message, type) {
+    let bodyElement = document.querySelector('body'),
+        modalElement = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
+        modalParagraphElement = null;
+
+    if (modalElement) {
+        modalParagraphElement = modalElement.querySelector('p');
+    } else {
+        modalElement = document.createElement('div');
+        modalParagraphElement = document.createElement('p');
+    }
+
+    modalElement.setAttribute('class', 'ionbiz-ticket-sharing-modal modal-type--' + type);
+    modalParagraphElement.innerHTML = message;
+    modalElement.appendChild(modalParagraphElement);
+    bodyElement.appendChild(modalElement);
+}
+
 chrome.runtime.onInstalled.addListener(function () {
+    chrome.storage.sync.get({ 'options': { URL: true } }).then((result) => {
+        chrome.contextMenus.create({
+            title: 'Default to ticket URL',
+            type: 'radio',
+            checked: result.options.URL,
+            contexts: ['action'],
+            id: 'update_url'
+        });
 
-    chrome.contextMenus.create({
-        title: 'Default to ticket URL',
-        type: 'radio',
-        contexts: ['action'],
-        id: 'update_url'
-    });
+        chrome.contextMenus.create({
+            title: 'Default to ticket title',
+            type: 'radio',
+            checked: result.options.TEXT,
+            contexts: ['action'],
+            id: 'update_text'
+        });
 
-    chrome.contextMenus.create({
-        title: 'Default to ticket title',
-        type: 'radio',
-        contexts: ['action'],
-        id: 'update_text'
-    });
+        chrome.contextMenus.create({
+            title: 'Default to ticket title as HTML link',
+            type: 'radio',
+            checked: result.options.LINK,
+            contexts: ['action'],
+            id: 'update_link'
+        });
 
-    chrome.contextMenus.create({
-        title: 'Default to ticket title as HTML link',
-        type: 'radio',
-        contexts: ['action'],
-        id: 'update_link'
-    });
-
-    chrome.contextMenus.create({
-        title: 'Default to ticket title and URL',
-        type: 'radio',
-        contexts: ['action'],
-        id: 'update_text_and_url'
+        chrome.contextMenus.create({
+            title: 'Default to ticket title and URL',
+            type: 'radio',
+            checked: result.options.TEXT_AND_URL,
+            contexts: ['action'],
+            id: 'update_text_and_url'
+        });
     });
 });
 
@@ -138,6 +193,20 @@ chrome.commands.onCommand.addListener((command) => {
     insertContentScript(null, command);
 });
 
-chrome.contextMenus.onClicked.addListener((info) => {
-    insertContentScript(null, info.menuItemId);
+chrome.contextMenus.onClicked.addListener(function (info) {
+    switch (info.menuItemId) {
+        case 'update_text':
+            chrome.storage.sync.set({ 'options': { TEXT: true } });
+            break;
+        case 'update_link':
+            chrome.storage.sync.set({ 'options': { LINK: true } });
+            break;
+        case 'update_text_and_url':
+            chrome.storage.sync.set({ 'options': { TEXT_AND_URL: true } });
+            break;
+        default:
+            chrome.storage.sync.set({ 'options': { URL: true } });
+    }
+
+    insertContentScript(null, null, true);
 });
