@@ -46,7 +46,7 @@ function shareTicket(options) {
         } else if (options.TEXT) {
             return [new ClipboardItem({ "text/plain": new Blob([ticketInfo], { type: "text/plain" }) })];
         } else if (options.TEXT_AND_URL) {
-            return [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' ' + ticketURL], { type: "text/plain" }) })];
+            return [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' (' + ticketURL + ')'], { type: "text/plain" }) })];
         } else {
             return [new ClipboardItem({ "text/plain": new Blob([ticketURL], { type: "text/plain" }) })];
         }
