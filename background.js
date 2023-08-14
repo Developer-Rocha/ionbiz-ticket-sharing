@@ -160,19 +160,19 @@ chrome.runtime.onInstalled.addListener(function () {
         });
 
         chrome.contextMenus.create({
+            title: 'Default to ticket HTML link',
+            type: 'radio',
+            checked: result.options.LINK,
+            contexts: ['action'],
+            id: 'update_link'
+        });
+
+        chrome.contextMenus.create({
             title: 'Default to ticket title',
             type: 'radio',
             checked: result.options.TEXT,
             contexts: ['action'],
             id: 'update_text'
-        });
-
-        chrome.contextMenus.create({
-            title: 'Default to ticket title as HTML link',
-            type: 'radio',
-            checked: result.options.LINK,
-            contexts: ['action'],
-            id: 'update_link'
         });
 
         chrome.contextMenus.create({
