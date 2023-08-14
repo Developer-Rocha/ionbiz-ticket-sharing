@@ -100,28 +100,33 @@ async function insertContentScript(tab, format) {
 }
 
 chrome.runtime.onInstalled.addListener(function () {
+
     chrome.contextMenus.create({
-        title: 'Copy URL',
-        contexts: ['all'],
-        id: 'URL'
+        title: 'Default to ticket URL',
+        type: 'radio',
+        contexts: ['action'],
+        id: 'update_url'
     });
 
     chrome.contextMenus.create({
-        title: 'Copy ticket Info',
-        contexts: ['all'],
-        id: 'TEXT'
+        title: 'Default to ticket title',
+        type: 'radio',
+        contexts: ['action'],
+        id: 'update_text'
     });
 
     chrome.contextMenus.create({
-        title: 'Copy ticket Info (HTML Link)',
-        contexts: ['all'],
-        id: 'LINK'
+        title: 'Default to ticket title as HTML link',
+        type: 'radio',
+        contexts: ['action'],
+        id: 'update_link'
     });
 
     chrome.contextMenus.create({
-        title: 'Copy ticket info and URL',
-        contexts: ['all'],
-        id: 'TEXT_AND_URL'
+        title: 'Default to ticket title and URL',
+        type: 'radio',
+        contexts: ['action'],
+        id: 'update_text_and_url'
     });
 });
 
