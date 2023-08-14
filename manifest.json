@@ -13,13 +13,13 @@
       "suggested_key": "Alt+Shift+Q",
       "description": "Copy ticket URL"
     },
-    "TEXT": {
-      "suggested_key": "Alt+Shift+W",
-      "description": "Copy ticket title"
-    },
     "LINK": {
+      "suggested_key": "Alt+Shift+W",
+      "description": "Copy ticket HTML Link"
+    },
+    "TEXT": {
       "suggested_key": "Alt+Shift+A",
-      "description": "Copy ticket title as HTML Link"
+      "description": "Copy ticket title"
     },
     "TEXT_AND_URL": {
       "suggested_key": "Alt+Shift+S",
