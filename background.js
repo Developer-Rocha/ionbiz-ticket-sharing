@@ -198,6 +198,12 @@ chrome.runtime.onInstalled.addListener(function () {
         contexts: ['action'],
         id: 'getting_started'
     });
+
+    chrome.contextMenus.create({
+        title: 'Configure shortcuts',
+        contexts: ['action'],
+        id: 'configure_shortcuts'
+    });
 });
 
 chrome.action.onClicked.addListener((tab) => {
@@ -225,6 +231,11 @@ chrome.contextMenus.onClicked.addListener(function (info) {
         case 'getting_started':
             chrome.tabs.create({
                 url: "gettingstarted.html"
+            });
+            break;
+        case 'configure_shortcuts':
+            chrome.tabs.create({
+                url: "chrome://extensions/shortcuts"
             });
     }
 
