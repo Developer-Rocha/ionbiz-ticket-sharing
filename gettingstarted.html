@@ -4,52 +4,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Getting started</title>
+    <title>Getting started - Ionbiz Ticketing Sharing</title>
+    <link rel="stylesheet" href="src/options/normalize.css">
+
     <style>
         ol {
             list-style: none;
             counter-reset: steps;
+            line-height: 1.4rem;
         }
 
         ol li {
             counter-increment: steps;
+            margin: 0.8rem 0;
+            color: var(--main-bg-dark-color);
+            font-weight: 600;
         }
 
         ol li::before {
             content: counter(steps);
-            margin-right: 0.5rem;
-            background: #ff6f00;
+            margin-right: 1rem;
+            background: var(--main-bg-light-color);
             color: white;
-            width: 1.2em;
-            height: 1.2em;
+            width: 2.2em;
+            height: 2.2em;
             border-radius: 50%;
             display: inline-grid;
             place-items: center;
-            line-height: 1.2em;
+            line-height: 2.2em;
         }
 
+        /*
+        background-image: linear-gradient(direction, #226391, #3891a3,
+        Main color: #3891a3
+        Darker blue: #226391
+
+    
+        */
+
         ol ol li::before {
-            background: darkorchid;
+            background: var(--main-bg-light-color);
+        }
+
+        :root {
+            --main-bg-light-color: #3891a3;
+            --main-bg-dark-color: #226391;
+        }
+
+
+        body {
+            margin: 20px auto;
+            width: 800px;
+            font-size: 1rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            background-image: linear-gradient(90deg, var(--main-bg-dark-color), var(--main-bg-light-color));
+            background-size: 100%;
+            background-repeat: repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #d7d7d7;
+            font-weight: 400;
+            margin-top: 0.6rem;
+        }
+
+        .ol-details {
+            display: block;
+            margin-top: 1rem;
+            margin-left: 3.2rem;
         }
     </style>
 </head>
 
 <body>
-    <ol>
-        <li>Install the browser extension.</li>
-        <li>Pin the browser extension to the toolbar.</li>
-        <li>Go to an Ionbiz subdomain url (*.ionbiz.com).</li>
-        <li>View a ticket detail.</li>
-        <li>Copy the ticket by:
-            <ol>
-                <li>Left-clicking on the extension in the toolbar. Right-click on the extension
-                    to update the copy format. A ticket has multiple copy formats.</li>
-                <li>Using shortcuts to copy multiple ticket formats. Right-click on the extension to configure the
-                    shortcuts.</li>
-            </ol>
-        </li>
-        <li>Share the ticket!</li>
-    </ol>
+    <header>
+        <h1>Ionbiz Ticket Sharing</h1>
+        <h2>Getting started</h2>
+    </header>
+    <main>
+        <ol>
+            <li>Install the browser extension.</li>
+            <li>Pin the browser extension to the toolbar.</li>
+            <li>Go to an Ionbiz subdomain url (*.ionbiz.com).</li>
+            <li>View a ticket detail.</li>
+            <li>Copy the ticket by:
+                <ol>
+                    <li>Left-clicking on the extension in the toolbar. <span class="ol-details">Right-click on the
+                            extension
+                            to update the copy format.</span>
+                        <span class="ol-details">Ticket URL: Displays the ticket url.
+                            e.g. https://example.ionbiz.com/Issue/Index/1</span>
+                        <span class="ol-details">Ticket hyperlink:
+                            Displays the ticket title and URL as a hyperlink
+                            e.g. <a href="#">12345 Ticket name</a></span>
+                        <span class="ol-details">Ticket title:
+                            Displays the ticket title.
+                            e.g. 12345 Ticket name</span>
+                        <span class="ol-details">Ticket title and URL:
+                            Displays the ticket title and URL.
+                            e.g. 12345 Ticket name (<a href="#">https://example.ionbiz.com/Issue/Index/1</a>)</span>
+                    </li>
+                    <li>Using shortcuts.<span class="ol-details">Right-click on the extension to configure
+                            shortcuts.</span>
+                    </li>
+                </ol>
+            </li>
+            <li>Share the ticket!</li>
+        </ol>
+    </main>
 </body>
 
 </html>
