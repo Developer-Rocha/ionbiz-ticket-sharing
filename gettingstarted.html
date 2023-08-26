@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting started</title>
+    <style>
+        ol {
+            list-style: none;
+            counter-reset: steps;
+        }
+
+        ol li {
+            counter-increment: steps;
+        }
+
+        ol li::before {
+            content: counter(steps);
+            margin-right: 0.5rem;
+            background: #ff6f00;
+            color: white;
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: 50%;
+            display: inline-grid;
+            place-items: center;
+            line-height: 1.2em;
+        }
+
+        ol ol li::before {
+            background: darkorchid;
+        }
+    </style>
+</head>
+
+<body>
+    <ol>
+        <li>Install the browser extension.</li>
+        <li>Pin the browser extension to the toolbar.</li>
+        <li>Go to an Ionbiz subdomain url (*.ionbiz.com).</li>
+        <li>View a ticket detail.</li>
+        <li>Copy the ticket by:
+            <ol>
+                <li>Left-clicking on the extension in the toolbar. Right-click on the extension
+                    to update the copy format. A ticket has multiple copy formats.</li>
+                <li>Using shortcuts to copy multiple ticket formats. Right-click on the extension to configure the
+                    shortcuts.</li>
+            </ol>
+        </li>
+        <li>Share the ticket!</li>
+    </ol>
+</body>
+
+</html>

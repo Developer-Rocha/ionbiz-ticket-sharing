@@ -149,6 +149,15 @@ function displayMessage(message, type) {
     bodyElement.appendChild(modalElement);
 }
 
+
+chrome.runtime.onInstalled.addListener(({ reason }) => {
+    if (reason === 'install') {
+        chrome.tabs.create({
+            url: "getstarted.html"
+        });
+    }
+});
+
 chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.sync.get({ 'options': { URL: true } }).then((result) => {
         chrome.contextMenus.create({
@@ -183,6 +192,12 @@ chrome.runtime.onInstalled.addListener(function () {
             id: 'update_text_and_url'
         });
     });
+
+    chrome.contextMenus.create({
+        title: 'Getting started',
+        contexts: ['action'],
+        id: 'getting_started'
+    });
 });
 
 chrome.action.onClicked.addListener((tab) => {
@@ -204,8 +219,13 @@ chrome.contextMenus.onClicked.addListener(function (info) {
         case 'update_text_and_url':
             chrome.storage.sync.set({ 'options': { TEXT_AND_URL: true } });
             break;
-        default:
+        case 'update_url':
             chrome.storage.sync.set({ 'options': { URL: true } });
+            break;
+        case 'getting_started':
+            chrome.tabs.create({
+                url: "gettingstarted.html"
+            });
     }
 
     insertContentScript(null, null, true);
