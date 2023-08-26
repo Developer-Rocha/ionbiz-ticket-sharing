@@ -15,7 +15,7 @@
     },
     "LINK": {
       "suggested_key": "Alt+Shift+W",
-      "description": "Copy ticket HTML Link"
+      "description": "Copy ticket hyperlink"
     },
     "TEXT": {
       "suggested_key": "Alt+Shift+A",

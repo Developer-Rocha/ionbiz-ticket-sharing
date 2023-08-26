@@ -169,7 +169,7 @@ chrome.runtime.onInstalled.addListener(function () {
         });
 
         chrome.contextMenus.create({
-            title: 'Default to ticket HTML link',
+            title: 'Default to ticket hyperlink',
             type: 'radio',
             checked: result.options.LINK,
             contexts: ['action'],
