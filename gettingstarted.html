@@ -8,10 +8,23 @@
     <link rel="stylesheet" href="src/options/normalize.css">
 
     <style>
+        :root {
+            --main-bg-light-color: #3891a3;
+            --main-bg-dark-color: #226391;
+        }
+
+        body {
+            margin: 0 auto;
+            width: 800px;
+            font-size: 1rem;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
         ol {
             list-style: none;
             counter-reset: steps;
             line-height: 1.4rem;
+            padding: 0;
         }
 
         ol li {
@@ -19,6 +32,10 @@
             margin: 0.8rem 0;
             color: var(--main-bg-dark-color);
             font-weight: 600;
+        }
+
+        ol li ol {
+            padding-left: 2.5rem;
         }
 
         ol li::before {
@@ -34,29 +51,8 @@
             line-height: 2.2em;
         }
 
-        /*
-        background-image: linear-gradient(direction, #226391, #3891a3,
-        Main color: #3891a3
-        Darker blue: #226391
-
-    
-        */
-
         ol ol li::before {
             background: var(--main-bg-light-color);
-        }
-
-        :root {
-            --main-bg-light-color: #3891a3;
-            --main-bg-dark-color: #226391;
-        }
-
-
-        body {
-            margin: 20px auto;
-            width: 800px;
-            font-size: 1rem;
-            font-family: Arial, Helvetica, sans-serif;
         }
 
         h1 {
@@ -73,16 +69,39 @@
         }
 
         h2 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #d7d7d7;
             font-weight: 400;
-            margin-top: 0.6rem;
+            margin: 0.6rem 0 0 0;
         }
 
-        .ol-details {
+        summary {
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 0.3rem;
+        }
+
+        header {
+            margin: 1.5rem 0 3rem 0;
+        }
+
+        .ol-details-wrapper {
             display: block;
-            margin-top: 1rem;
             margin-left: 3.2rem;
+        }
+
+        .ol-details--block {
+            display: block;
+        }
+
+        .ol-details--line {
+            display: block;
+            margin-top: 0.3rem;
+        }
+
+        a:link,
+        a:visited {
+            color: rgb(153, 153, 153);
         }
     </style>
 </head>
@@ -100,23 +119,30 @@
             <li>View a ticket detail.</li>
             <li>Copy the ticket by:
                 <ol>
-                    <li>Left-clicking on the extension in the toolbar. <span class="ol-details">Right-click on the
-                            extension
-                            to update the copy format.</span>
-                        <span class="ol-details">Ticket URL: Displays the ticket url.
-                            e.g. https://example.ionbiz.com/Issue/Index/1</span>
-                        <span class="ol-details">Ticket hyperlink:
-                            Displays the ticket title and URL as a hyperlink
-                            e.g. <a href="#">12345 Ticket name</a></span>
-                        <span class="ol-details">Ticket title:
-                            Displays the ticket title.
-                            e.g. 12345 Ticket name</span>
-                        <span class="ol-details">Ticket title and URL:
-                            Displays the ticket title and URL.
-                            e.g. 12345 Ticket name (<a href="#">https://example.ionbiz.com/Issue/Index/1</a>)</span>
+                    <li>Left-clicking on the extension in the toolbar.
+                        <span class="ol-details-wrapper">Right-click to update
+                            the copy format.
+                            <details class="ol-details--block">
+                                <summary>Click to view the copy formats.</summary>
+                                <span class="ol-details--line">Ticket URL: Displays the ticket url.
+                                    e.g. <a href="#">https://example.ionbiz.com/Issue/Index/1</a></span>
+                                <span class="ol-details--block">Ticket hyperlink:
+                                    Displays the ticket title and URL as a hyperlink
+                                    e.g. <a href="#">12345 Ticket name</a></span>
+                                <span class="ol-details--block">Ticket title:
+                                    Displays the ticket title.
+                                    e.g. 12345 Ticket name</span>
+                                <span class="ol-details--block">Ticket title and URL:
+                                    Displays the ticket title and URL.
+                                    e.g. 12345 Ticket name (<a
+                                        href="#">https://example.ionbiz.com/Issue/Index/1</a>)</span>
+                            </details>
+
+                        </span>
                     </li>
-                    <li>Using shortcuts.<span class="ol-details">Right-click on the extension to configure
-                            shortcuts.</span>
+                    <li>Using shortcuts.<span class="ol-details-wrapper"><span class="ol-details--block">Right-click on
+                                the extension to configure
+                                shortcuts.</span></span>
                     </li>
                 </ol>
             </li>
