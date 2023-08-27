@@ -7,7 +7,7 @@
     z-index: 2000000000 !important;
     padding: 15px 20px !important;
     animation-name: moveFromTop !important;
-    animation-duration: 6s !important;
+    animation-duration: 5s !important;
 }
 
 .ionbiz-ticket-sharing-modal p {
