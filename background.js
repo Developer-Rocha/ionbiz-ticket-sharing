@@ -153,7 +153,7 @@ function displayMessage(message, type) {
 chrome.runtime.onInstalled.addListener(({ reason }) => {
     if (reason === 'install') {
         chrome.tabs.create({
-            url: "getstarted.html"
+            url: "gettingstarted.html"
         });
     }
 });
