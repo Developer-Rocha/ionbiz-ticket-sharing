@@ -10,19 +10,19 @@
   },
   "commands": {
     "URL": {
-      "suggested_key": "Alt+Shift+Q",
+      "suggested_key": "Alt+Q",
       "description": "Copy ticket URL"
     },
     "LINK": {
-      "suggested_key": "Alt+Shift+W",
+      "suggested_key": "Alt+W",
       "description": "Copy ticket hyperlink"
     },
     "TEXT": {
-      "suggested_key": "Alt+Shift+A",
+      "suggested_key": "Alt+A",
       "description": "Copy ticket title"
     },
     "TEXT_AND_URL": {
-      "suggested_key": "Alt+Shift+S",
+      "suggested_key": "Alt+S",
       "description": "Copy ticket title and URL"
     }
   },
