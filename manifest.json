@@ -22,11 +22,11 @@
     },
     "TEXT": {
       "suggested_key": "Alt+A",
-      "description": "Copy ticket title"
+      "description": "Copy ticket name"
     },
     "TEXT_AND_URL": {
       "suggested_key": "Alt+S",
-      "description": "Copy ticket title and URL"
+      "description": "Copy ticket name and URL"
     }
   },
   "icons": {

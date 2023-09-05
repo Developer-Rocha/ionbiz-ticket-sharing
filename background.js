@@ -177,7 +177,7 @@ chrome.runtime.onInstalled.addListener(function () {
         });
 
         chrome.contextMenus.create({
-            title: 'Default to ticket title',
+            title: 'Default to ticket name',
             type: 'radio',
             checked: result.options.TEXT,
             contexts: ['action'],
@@ -185,7 +185,7 @@ chrome.runtime.onInstalled.addListener(function () {
         });
 
         chrome.contextMenus.create({
-            title: 'Default to ticket title and URL',
+            title: 'Default to ticket name and URL',
             type: 'radio',
             checked: result.options.TEXT_AND_URL,
             contexts: ['action'],
