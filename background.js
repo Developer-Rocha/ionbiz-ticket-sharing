@@ -43,8 +43,6 @@ function shareTicket(options) {
     function getShareFormat(options, ticketURL, ticketInfo) {
         if (options.LINK) {
             return [new ClipboardItem({ "text/html": new Blob(["<a target='_blank' href='" + ticketURL + "'>" + ticketInfo + "</a>"], { type: "text/html" }) })];
-        } else if (options.TEXT) {
-            return [new ClipboardItem({ "text/plain": new Blob([ticketInfo], { type: "text/plain" }) })];
         } else if (options.TEXT_AND_URL) {
             return [new ClipboardItem({ "text/plain": new Blob([ticketInfo + ' (' + ticketURL + ')'], { type: "text/plain" }) })];
         } else {
@@ -177,14 +175,6 @@ chrome.runtime.onInstalled.addListener(function () {
         });
 
         chrome.contextMenus.create({
-            title: 'Default to ticket name',
-            type: 'radio',
-            checked: result.options.TEXT,
-            contexts: ['action'],
-            id: 'update_text'
-        });
-
-        chrome.contextMenus.create({
             title: 'Default to ticket name and URL',
             type: 'radio',
             checked: result.options.TEXT_AND_URL,
@@ -216,9 +206,6 @@ chrome.commands.onCommand.addListener((command) => {
 
 chrome.contextMenus.onClicked.addListener(function (info) {
     switch (info.menuItemId) {
-        case 'update_text':
-            chrome.storage.sync.set({ 'options': { TEXT: true } });
-            break;
         case 'update_link':
             chrome.storage.sync.set({ 'options': { LINK: true } });
             break;

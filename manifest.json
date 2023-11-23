@@ -20,12 +20,8 @@
       "suggested_key": "Alt+W",
       "description": "Copy ticket hyperlink"
     },
-    "TEXT": {
-      "suggested_key": "Alt+A",
-      "description": "Copy ticket name"
-    },
     "TEXT_AND_URL": {
-      "suggested_key": "Alt+S",
+      "suggested_key": "Alt+A",
       "description": "Copy ticket name and URL"
     }
   },
