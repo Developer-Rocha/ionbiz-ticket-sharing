@@ -159,7 +159,7 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
 chrome.runtime.onInstalled.addListener(function () {
     chrome.storage.sync.get({ 'options': { URL: true } }).then((result) => {
         chrome.contextMenus.create({
-            title: 'Default to ticket URL',
+            title: 'Set to ticket URL',
             type: 'radio',
             checked: result.options.URL,
             contexts: ['action'],
@@ -167,7 +167,7 @@ chrome.runtime.onInstalled.addListener(function () {
         });
 
         chrome.contextMenus.create({
-            title: 'Default to ticket hyperlink',
+            title: 'Set to ticket hyperlink',
             type: 'radio',
             checked: result.options.LINK,
             contexts: ['action'],
@@ -175,7 +175,7 @@ chrome.runtime.onInstalled.addListener(function () {
         });
 
         chrome.contextMenus.create({
-            title: 'Default to ticket name and URL',
+            title: 'Set to ticket name and URL',
             type: 'radio',
             checked: result.options.TEXT_AND_URL,
             contexts: ['action'],
