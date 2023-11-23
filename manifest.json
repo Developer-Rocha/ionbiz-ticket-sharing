@@ -14,15 +14,15 @@
   "commands": {
     "URL": {
       "suggested_key": "Alt+Q",
-      "description": "Copy ticket URL"
+      "description": "Get ticket URL"
     },
     "LINK": {
       "suggested_key": "Alt+W",
-      "description": "Copy ticket hyperlink"
+      "description": "Get ticket hyperlink"
     },
     "TEXT_AND_URL": {
       "suggested_key": "Alt+A",
-      "description": "Copy ticket name and URL"
+      "description": "Get ticket name and URL"
     }
   },
   "icons": {
