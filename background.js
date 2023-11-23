@@ -151,7 +151,7 @@ function displayMessage(message, type) {
 chrome.runtime.onInstalled.addListener(({ reason }) => {
     if (reason === 'install') {
         chrome.tabs.create({
-            url: "gettingstarted.html"
+            url: "getting-started/index.html"
         });
     }
 });
@@ -217,7 +217,7 @@ chrome.contextMenus.onClicked.addListener(function (info) {
             break;
         case 'getting_started':
             chrome.tabs.create({
-                url: "gettingstarted.html"
+                url: "getting-started/index.html"
             });
             break;
         case 'configure_shortcuts':
