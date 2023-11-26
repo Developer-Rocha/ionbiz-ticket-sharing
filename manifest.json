@@ -2,7 +2,7 @@
   "name": "Ionbiz Ticket Sharing",
   "description": "Easily share Ionbiz tickets.",
   "homepage_url": "https://github.com/knvc/ionbiz-ticket-sharing",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "manifest_version": 3,
   "action": {
     "default_icon": {
