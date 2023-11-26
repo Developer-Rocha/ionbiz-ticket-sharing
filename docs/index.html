@@ -58,10 +58,18 @@
             <li>A feedback message is displayed.</li>
             <li>The selected output format was set as default.</li>
         </ol>
-        <img src="img/its_output_formats.png" />
+        <img src="images/its_output_formats.png" />
         <h3>Shortcuts</h3>
-        <p>You can set an output format for the default action or for other output formats.</p>
-        <img src="img/its_shortcuts.png" />
+        <p>You can set a shortcut for the default action or for other output formats.</p>
+        <img src="images/its_shortcuts.png" />
+        <h3>Known issues</h3>
+        <h4>Document is not focused</h4>
+        <p>The following feedback message may appear: "The extension could not write ticket info to the clipboard.
+            NotAllowedError: Document is not focused."</p>
+        <p>This error message means that the focus is no longer present on the document. Before you want to retrieve
+            your ticket, first click on the web page to change the focus.</p>
+        <h4>Can't copy hyperlink to Slack</h4>
+        <p>It is currently not possible to copy a hyperlink to Slack. The other output formats do work.</p>
     </main>
 </body>
 
