@@ -3,7 +3,7 @@ Ionbiz Ticket Sharing is a browser extension for Google Chrome that makes Ionbiz
 
 ## Download & Install
 The browser extension is available for Chrome:  
-[Download the latest version](https://github.com/knvc/ionbiz-ticket-sharing/archive/refs/tags/v0.9.0.zip)  
+[Download the latest version](https://github.com/knvc/ionbiz-ticket-sharing/archive/refs/tags/v1.0.0.zip)  
 [How to install](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)  
 
 ## Getting started
