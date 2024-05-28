@@ -1,5 +1,4 @@
 function shareTicket(options) {
-
     let currentUrl = window.location,
         bodyElement = document.querySelector('body'),
         modalElement = bodyElement.querySelector('.ionbiz-ticket-sharing-modal'),
@@ -73,10 +72,11 @@ function shareTicket(options) {
     }
 }
 
-function insertDefaultDescription() {
-    const descriptionElement = document.getElementById('TabGeneral_IssueDescriptionSection_Description');
-    const replyHTML = `
-        <p>
+function insertDefaultDescription(options) {
+
+    // Define the default texts for description.
+    const descriptions = {
+        DESCRIPTION_1: `
             Beste [naam],<br><br>
             [omschrijving_probleem]<br><br>
             [omschrijving_oplossing]<br><br>
@@ -84,7 +84,20 @@ function insertDefaultDescription() {
             Geef gerust een seintje na testing wanneer we dit mogen deployen naar productie.<br><br>
             Aarzel niet om ons te contacteren indien er nog vragen zijn.<br><br>
             Met vriendelijke groeten,<br>[naam]
-        </p>`;
+        `,
+        DESCRIPTION_2: `
+            Description 2: Beste [naam],<br><br>
+            [andere_omschrijving_probleem]<br><br>
+            [andere_omschrijving_oplossing]<br><br>
+            Je kan de aanpassingen via de volgende URL testen op de {staging/productie} omgeving: {url}.<br><br>
+            Geef gerust een seintje na testing wanneer we dit mogen deployen naar productie.<br><br>
+            Aarzel niet om ons te contacteren indien er nog vragen zijn.<br><br>
+            Met vriendelijke groeten,<br>[naam]
+        `
+    };
+
+    const descriptionElement = document.getElementById('TabGeneral_IssueDescriptionSection_Description');
+    const replyHTML = descriptions[options.descriptionType];
 
     if (descriptionElement) {
         try {
@@ -96,44 +109,6 @@ function insertDefaultDescription() {
     } else {
         displayMessage('Could not find the description element to insert the reply.', 'error');
     }
-}
-
-function displayMessage(message, type) {
-    if (modalElement) {
-        modalParagraphElement = modalElement.querySelector('p');
-    } else {
-        modalElement = document.createElement('div');
-        modalParagraphElement = document.createElement('p');
-    }
-
-    modalElement.setAttribute('class', 'ionbiz-ticket-sharing-modal modal-type--' + type);
-    modalParagraphElement.innerHTML = message;
-    modalElement.appendChild(modalParagraphElement);
-    bodyElement.appendChild(modalElement);
-}
-
-async function insertContentScript(tab, format, dialog) {
-    let options = null;
-
-    if (!tab) {
-        [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-    }
-
-    if (format) {
-        options = {};
-        options[format] = true;
-    }
-
-    chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        func: shareTicket,
-        args: [options],
-    });
-
-    chrome.scripting.insertCSS({
-        target: { tabId: tab.id },
-        files: ['message.css']
-    });
 }
 
 async function insertContentScript(tab, format, isDialog) {
@@ -157,11 +132,23 @@ async function insertContentScript(tab, format, isDialog) {
 
         const funcToExecute = format === 'USE_DEFAULT_DESCRIPTION' ? insertDefaultDescription : shareTicket;
 
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            func: funcToExecute,
-            args: [options],
-        });
+        if (format === 'USE_DEFAULT_DESCRIPTION') {
+            chrome.storage.sync.get({ descriptionType: 'DESCRIPTION_1' }, (result) => {
+                options.descriptionType = result.descriptionType;
+
+                chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    func: funcToExecute,
+                    args: [options],
+                });
+            });
+        } else {
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                func: funcToExecute,
+                args: [options],
+            });
+        }
     }
 
     chrome.scripting.insertCSS({
@@ -188,17 +175,14 @@ function displayMessage(message, type) {
     bodyElement.appendChild(modalElement);
 }
 
-
 chrome.runtime.onInstalled.addListener(({ reason }) => {
     if (reason === 'install') {
         chrome.tabs.create({
             url: "docs/index.html"
         });
     }
-});
 
-chrome.runtime.onInstalled.addListener(function () {
-    chrome.storage.sync.get({ 'options': { URL: true } }).then((result) => {
+    chrome.storage.sync.get({ 'options': { URL: true }, descriptionType: 'DESCRIPTION_1' }).then((result) => {
         chrome.contextMenus.create({
             title: 'Set to ticket URL',
             type: 'radio',
@@ -224,22 +208,38 @@ chrome.runtime.onInstalled.addListener(function () {
         });
 
         chrome.contextMenus.create({
-            title: 'Insert Support Reply',
+            title: 'Use Description 1',
+            type: 'radio',
+            checked: result.descriptionType === 'DESCRIPTION_1',
+            contexts: ['action'],
+            id: 'description_1'
+        });
+
+        chrome.contextMenus.create({
+            title: 'Use Description 2',
+            type: 'radio',
+            checked: result.descriptionType === 'DESCRIPTION_2',
+            contexts: ['action'],
+            id: 'description_2'
+        });
+
+        chrome.contextMenus.create({
+            title: 'Insert Default Description',
             contexts: ['action'],
             id: 'insert_default_description'
         });
-    });
 
-    chrome.contextMenus.create({
-        title: 'Getting started',
-        contexts: ['action'],
-        id: 'getting_started'
-    });
+        chrome.contextMenus.create({
+            title: 'Getting started',
+            contexts: ['action'],
+            id: 'getting_started'
+        });
 
-    chrome.contextMenus.create({
-        title: 'Configure shortcuts',
-        contexts: ['action'],
-        id: 'configure_shortcuts'
+        chrome.contextMenus.create({
+            title: 'Configure shortcuts',
+            contexts: ['action'],
+            id: 'configure_shortcuts'
+        });
     });
 });
 
@@ -264,6 +264,12 @@ chrome.contextMenus.onClicked.addListener(function (info) {
             break;
         case 'insert_default_description':
             insertContentScript(null, 'USE_DEFAULT_DESCRIPTION');
+            break;
+        case 'description_1':
+            chrome.storage.sync.set({ descriptionType: 'DESCRIPTION_1' });
+            break;
+        case 'description_2':
+            chrome.storage.sync.set({ descriptionType: 'DESCRIPTION_2' });
             break;
         case 'getting_started':
             chrome.tabs.create({
