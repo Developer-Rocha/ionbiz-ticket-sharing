@@ -73,6 +73,45 @@ function shareTicket(options) {
     }
 }
 
+function insertDefaultDescription() {
+    const descriptionElement = document.getElementById('TabGeneral_IssueDescriptionSection_Description');
+    const replyHTML = `
+        <p>
+            Beste [naam],<br><br>
+            [omschrijving_probleem]<br><br>
+            [omschrijving_oplossing]<br><br>
+            Je kan de aanpassingen via de volgende URL testen op de {staging/productie} omgeving: {url}.<br><br>
+            Geef gerust een seintje na testing wanneer we dit mogen deployen naar productie.<br><br>
+            Aarzel niet om ons te contacteren indien er nog vragen zijn.<br><br>
+            Met vriendelijke groeten,<br>[naam]
+        </p>`;
+
+    if (descriptionElement) {
+        try {
+            descriptionElement.insertAdjacentHTML('beforeend', replyHTML);
+            displayMessage('Successfully inserted reply.', 'success');
+        } catch (error) {
+            displayMessage(error, 'error');
+        }
+    } else {
+        displayMessage('Could not find the description element to insert the reply.', 'error');
+    }
+}
+
+function displayMessage(message, type) {
+    if (modalElement) {
+        modalParagraphElement = modalElement.querySelector('p');
+    } else {
+        modalElement = document.createElement('div');
+        modalParagraphElement = document.createElement('p');
+    }
+
+    modalElement.setAttribute('class', 'ionbiz-ticket-sharing-modal modal-type--' + type);
+    modalParagraphElement.innerHTML = message;
+    modalElement.appendChild(modalParagraphElement);
+    bodyElement.appendChild(modalElement);
+}
+
 async function insertContentScript(tab, format, dialog) {
     let options = null;
 
@@ -116,9 +155,11 @@ async function insertContentScript(tab, format, isDialog) {
             options[format] = true;
         }
 
+        const funcToExecute = format === 'USE_DEFAULT_DESCRIPTION' ? insertDefaultDescription : shareTicket;
+
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
-            func: shareTicket,
+            func: funcToExecute,
             args: [options],
         });
     }
@@ -181,6 +222,12 @@ chrome.runtime.onInstalled.addListener(function () {
             contexts: ['action'],
             id: 'update_text_and_url'
         });
+
+        chrome.contextMenus.create({
+            title: 'Insert Support Reply',
+            contexts: ['action'],
+            id: 'insert_default_description'
+        });
     });
 
     chrome.contextMenus.create({
@@ -214,6 +261,9 @@ chrome.contextMenus.onClicked.addListener(function (info) {
             break;
         case 'update_url':
             chrome.storage.sync.set({ 'options': { URL: true } });
+            break;
+        case 'insert_default_description':
+            insertContentScript(null, 'USE_DEFAULT_DESCRIPTION');
             break;
         case 'getting_started':
             chrome.tabs.create({
