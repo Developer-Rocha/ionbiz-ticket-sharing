@@ -208,6 +208,13 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
         });
 
         chrome.contextMenus.create({
+            title: 'Descriptions',
+            contexts: ['action'],
+            id: 'descriptions'
+        });
+
+        chrome.contextMenus.create({
+            parentId: 'descriptions',
             title: 'Use Description 1',
             type: 'radio',
             checked: result.descriptionType === 'DESCRIPTION_1',
@@ -216,6 +223,7 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
         });
 
         chrome.contextMenus.create({
+            parentId: 'descriptions',
             title: 'Use Description 2',
             type: 'radio',
             checked: result.descriptionType === 'DESCRIPTION_2',
@@ -224,6 +232,7 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
         });
 
         chrome.contextMenus.create({
+            parentId: 'descriptions',
             title: 'Insert Default Description',
             contexts: ['action'],
             id: 'insert_default_description'
